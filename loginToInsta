@@ -1,0 +1,40 @@
+	WebDriver D;
+	utilityClass utl;
+	TestCaseForInsta Signup;
+	
+	@BeforeClass
+	public void OpenBrowser() {
+		BaseClass Driver = new BaseClass();
+		Driver.driverInit();
+		
+		D =new ChromeDriver();
+		
+		utl =new utilityClass();
+		
+		Signup = new TestCaseForInsta(D);
+	}
+	
+	@AfterClass
+	public void CloseBrowser() {
+		D.quit();
+	}
+	
+	@BeforeMethod
+	public void OpneInsta() throws InterruptedException {
+		D.get(Confg.InstaPath);
+		Thread.sleep(5000);
+	}
+	
+	@AfterMethod 
+	public void NewTestCase() {
+		D.navigate().refresh();
+	}
+	
+	@Test
+	public void TC1() throws EncryptedDocumentException, IOException {
+		Signup.EnterFullName(utl.ExcelData(1,0));
+		Signup.EnterEmail(utl.ExcelData(1, 4));
+		Signup.EnterUserName(utl.ExcelData(1, 2));
+		Signup.EnterPassword(utl.ExcelData(1, 3));
+	}
+	
